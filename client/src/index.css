@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+:root, [data-theme="dark"], html.dark {
   --paper: #ECE8E1;
   --ink: #131417;
   --accent: #79C043;
@@ -8,10 +8,22 @@
   --surface: #1C1E22;
   --surface-hover: #26292E;
   --muted: #8D9099;
-  --line: rgba(236, 232, 225, 0.15);
+  --line: rgba(236, 232, 225, 0.12);
   --line-strong: rgba(236, 232, 225, 0.25);
   --radius: 8px;
   --panel-radius: 24px;
+}
+
+[data-theme="light"], html.light {
+  --paper: #131417;          /* Text is deep ink */
+  --ink: #F6F5F2;            /* Background is bone paper */
+  --accent: #2E7D32;         /* High-contrast forest green for light surfaces */
+  --on-accent: #FFFFFF;
+  --surface: #FFFFFF;        /* Pure crisp card surface */
+  --surface-hover: #ECE9E2;  /* Slightly deeper warm hover */
+  --muted: #555A64;          /* High-legibility gray */
+  --line: rgba(19, 20, 23, 0.10);
+  --line-strong: rgba(19, 20, 23, 0.20);
 }
 
 body {
@@ -19,6 +31,7 @@ body {
   color: var(--paper);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .font-display {
@@ -45,4 +58,172 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* ==========================================================
+   LIGHT MODE OVERRIDES FOR NINEFOLD PALETTE
+   ========================================================== */
+html.light ::-webkit-scrollbar-track {
+  background: #F6F5F2;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #D2CDC3;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #2E7D32;
+}
+
+/* Background overrides */
+html.light .bg-\[\#131417\] {
+  background-color: #F6F5F2 !important;
+}
+
+html.light .bg-\[\#131417\]\/90 {
+  background-color: rgba(246, 245, 242, 0.94) !important;
+}
+
+html.light .bg-\[\#131417\]\/80 {
+  background-color: rgba(246, 245, 242, 0.88) !important;
+}
+
+html.light .bg-\[\#131417\]\/60 {
+  background-color: rgba(246, 245, 242, 0.80) !important;
+}
+
+html.light .bg-\[\#0D0E11\] {
+  background-color: #EBE8E1 !important;
+}
+
+html.light .bg-\[\#1C1E22\] {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+html.light .bg-\[\#1C1E22\]\/90 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+html.light .hover\:bg-\[\#131417\]:hover {
+  background-color: #ECE9E2 !important;
+}
+
+html.light .hover\:bg-\[\#1C1E22\]:hover {
+  background-color: #F2EFEB !important;
+}
+
+html.light .hover\:bg-\[\#26292E\]:hover {
+  background-color: #ECE8E0 !important;
+}
+
+/* Text overrides */
+html.light .text-\[\#ECE8E1\] {
+  color: #131417 !important;
+}
+
+html.light .text-\[\#8D9099\] {
+  color: #555A64 !important;
+}
+
+html.light .text-\[\#8D9099\]\/70,
+html.light .text-\[\#8D9099\]\/60,
+html.light .text-\[\#8D9099\]\/50 {
+  color: #6C7280 !important;
+}
+
+html.light .text-\[\#79C043\] {
+  color: #2E7D32 !important;
+}
+
+html.light .hover\:text-\[\#79C043\]:hover {
+  color: #1E6B23 !important;
+}
+
+html.light .hover\:text-\[\#ECE8E1\]:hover {
+  color: #000000 !important;
+}
+
+html.light .placeholder\:text-\[\#8D9099\]\/50::placeholder {
+  color: #8C929E !important;
+}
+
+/* Accent badges & tags */
+html.light .bg-\[rgba\(121\,192\,67\,0\.08\)\] {
+  background-color: rgba(46, 125, 50, 0.10) !important;
+}
+
+html.light .border-\[rgba\(121\,192\,67\,0\.2\)\] {
+  border-color: rgba(46, 125, 50, 0.25) !important;
+}
+
+/* Border overrides in light mode */
+html.light .border-\[rgba\(236\,232\,225\,0\.12\)\] {
+  border-color: rgba(19, 20, 23, 0.10) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.15\)\] {
+  border-color: rgba(19, 20, 23, 0.12) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.1\)\] {
+  border-color: rgba(19, 20, 23, 0.08) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.2\)\] {
+  border-color: rgba(19, 20, 23, 0.16) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.25\)\] {
+  border-color: rgba(19, 20, 23, 0.22) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.08\)\] {
+  border-color: rgba(19, 20, 23, 0.07) !important;
+}
+
+html.light .border-\[rgba\(236\,232\,225\,0\.06\)\] {
+  border-color: rgba(19, 20, 23, 0.05) !important;
+}
+
+html.light .hover\:border-\[rgba\(236\,232\,225\,0\.25\)\]:hover,
+html.light .hover\:border-\[rgba\(236\,232\,225\,0\.2\)\]:hover,
+html.light .hover\:border-\[\#79C043\]:hover {
+  border-color: #2E7D32 !important;
+}
+
+/* Form input styling in light mode */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #FFFFFF !important;
+  color: #131417 !important;
+  border-color: rgba(19, 20, 23, 0.15) !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #2E7D32 !important;
+  outline: none !important;
+}
+
+/* Red accents in light mode */
+html.light .bg-red-950\/40 {
+  background-color: #FEE2E2 !important;
+  color: #991B1B !important;
+}
+
+html.light .hover\:bg-red-950\/40:hover,
+html.light .hover\:bg-red-950\/70:hover {
+  background-color: #FDCACA !important;
+}
+
+html.light .border-red-500\/30,
+html.light .border-red-500\/40,
+html.light .border-red-500\/50 {
+  border-color: #FCA5A5 !important;
+}
+
+html.light .text-red-300,
+html.light .text-red-400 {
+  color: #B91C1C !important;
 }

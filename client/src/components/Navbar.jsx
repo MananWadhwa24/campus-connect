@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useSocket } from "../context/SocketContext";
+import { useTheme } from "../context/ThemeContext";
 import {
   Menu,
   X,
@@ -10,11 +11,14 @@ import {
   LogOut,
   LayoutDashboard,
   Sparkles,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const { onlineCount } = useSocket();
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -75,7 +79,7 @@ function Navbar() {
           </div>
 
           {/* Right Action Cluster */}
-          <div className="hidden sm:flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-3">
             {/* Live Indicator */}
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C1E22] border border-[rgba(236,232,225,0.1)] text-[11px] font-mono text-[#8D9099]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#79C043] animate-pulse" />
@@ -84,6 +88,20 @@ function Navbar() {
                 ONLINE
               </span>
             </div>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-[#1C1E22] hover:bg-[#26292E] border border-[rgba(236,232,225,0.15)] hover:border-[#79C043] text-[#8D9099] hover:text-[#ECE8E1] transition flex items-center justify-center cursor-pointer"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+            >
+              {isDark ? (
+                <Sun size={16} className="text-amber-400 transition transform hover:rotate-45" />
+              ) : (
+                <Moon size={16} className="text-indigo-500 transition transform hover:-rotate-12" />
+              )}
+            </button>
 
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
@@ -119,8 +137,20 @@ function Navbar() {
             )}
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <div className="flex lg:hidden items-center gap-3">
+          {/* Mobile Hamburger & Theme Toggle */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-[#1C1E22] border border-[rgba(236,232,225,0.15)] text-[#ECE8E1] cursor-pointer"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle theme"
+            >
+              {isDark ? (
+                <Sun size={17} className="text-amber-400" />
+              ) : (
+                <Moon size={17} className="text-indigo-500" />
+              )}
+            </button>
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1C1E22] border border-[rgba(236,232,225,0.1)] text-[10px] font-mono text-[#8D9099]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#79C043] animate-pulse" />
               <span>{onlineCount}</span>
@@ -148,6 +178,22 @@ function Navbar() {
               {link.name}
             </Link>
           ))}
+
+          {/* Mobile Theme Toggle Row */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg bg-[#1C1E22] border border-[rgba(236,232,225,0.15)] text-xs font-mono uppercase tracking-wider text-[#ECE8E1] transition cursor-pointer"
+          >
+            <span className="flex items-center gap-2">
+              {isDark ? (
+                <Sun size={15} className="text-amber-400" />
+              ) : (
+                <Moon size={15} className="text-indigo-500" />
+              )}
+              <span>Theme: {isDark ? "Dark Mode" : "Light Mode"}</span>
+            </span>
+            <span className="text-[10px] text-[#79C043] font-bold">Switch</span>
+          </button>
 
           <div className="pt-4 border-t border-[rgba(236,232,225,0.1)] space-y-2">
             {isAuthenticated ? (
