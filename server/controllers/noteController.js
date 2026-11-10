@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const Note = require("../models/Note");
 
 // @desc    Get all notes (with optional search)
@@ -38,7 +40,7 @@ const getNotes = async (req, res, next) => {
   }
 };
 
-// @desc    Create a new note
+// @desc    Create a new note (with optional PDF file upload)
 // @route   POST /api/notes
 // @access  Private
 const createNote = async (req, res, next) => {
@@ -52,12 +54,25 @@ const createNote = async (req, res, next) => {
       });
     }
 
+    let fileUrl = null;
+    let fileName = null;
+    let fileSize = 0;
+
+    if (req.file) {
+      fileUrl = `/uploads/notes/${req.file.filename}`;
+      fileName = req.file.originalname;
+      fileSize = req.file.size;
+    }
+
     const note = await Note.create({
       title,
       description,
       subject: subject || title,
       semester,
       branch,
+      fileUrl,
+      fileName,
+      fileSize,
       uploadedBy: req.user._id,
       uploaderName: req.user.name || "Student",
     });
@@ -95,6 +110,18 @@ const deleteNote = async (req, res, next) => {
         success: false,
         message: "You are not authorized to delete this note",
       });
+    }
+
+    // Clean up file if present
+    if (note.fileUrl) {
+      const filePath = path.join(__dirname, "..", note.fileUrl);
+      if (fs.existsSync(filePath)) {
+        try {
+          fs.unlinkSync(filePath);
+        } catch (unlinkErr) {
+          console.warn("Could not delete physical note PDF:", unlinkErr.message);
+        }
+      }
     }
 
     await note.deleteOne();

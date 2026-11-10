@@ -6,8 +6,13 @@ const {
   deleteNote,
 } = require("../controllers/noteController");
 const { protect } = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
 
-router.route("/").get(getNotes).post(protect, createNote);
+router
+  .route("/")
+  .get(getNotes)
+  .post(protect, upload.single("file"), createNote);
+
 router.route("/:id").delete(protect, deleteNote);
 
 module.exports = router;
