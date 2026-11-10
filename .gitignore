@@ -20,6 +20,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Backup directories
+backup_baseline/
+
+# Uploaded Files
+server/uploads/notes/*
+!server/uploads/notes/.gitkeep
+
 # Editor directories and files
 .vscode/
 .idea/
