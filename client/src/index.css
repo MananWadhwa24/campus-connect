@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Scales entire application typography up cleanly for optimal legibility */
+html {
+  font-size: 17px;
+}
+
+/* Fail-safe: ensure dashboard cards are always visible regardless of animation */
+.dash-card {
+  opacity: 1;
+}
+
 :root, [data-theme="dark"], html.dark {
   --paper: #ECE8E1;
   --ink: #131417;

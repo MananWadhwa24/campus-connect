@@ -67,20 +67,29 @@ function Dashboard() {
     }
 
     const ctx = gsap.context(() => {
-      gsap.from(".dash-header", {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power3.out",
-      });
-      gsap.from(".dash-card", {
-        opacity: 0,
-        y: 25,
-        duration: 0.6,
-        stagger: 0.08,
-        delay: 0.2,
-        ease: "power3.out",
-      });
+      gsap.fromTo(
+        ".dash-header",
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          clearProps: "all",
+        }
+      );
+      gsap.fromTo(
+        ".dash-card",
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.04,
+          ease: "power3.out",
+          clearProps: "all",
+        }
+      );
     }, dashboardRef);
 
     return () => ctx.revert();
